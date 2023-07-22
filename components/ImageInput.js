@@ -94,7 +94,7 @@ export default function ImageInput({
 
   return (
     <>
-      <div className='w-full pt-[55%] bg-white rounded-xl shadow-md border border-dashed relative overflow-hidden'>
+      <div className='w-full md:w-1/2 md:pt-0 md:h-full pt-[55%] bg-white rounded-xl shadow-md border border-dashed relative overflow-hidden'>
         <div className='absolute top-0 left-0 w-full h-full'>
           <Dropzone
             multiple
@@ -102,7 +102,7 @@ export default function ImageInput({
             onDrop={ handleDrop }
           >
             {({getRootProps, getInputProps}) => (
-              <section className='dropzone w-full h-full'>
+              <section className='dropzone w-full h-full cursor-pointer'>
                 <div {...getRootProps()} className='input-text w-full h-full flex items-center justify-center'>
                   <input {...getInputProps()} />
                   <div className='flex flex-col items-center'>
@@ -117,14 +117,16 @@ export default function ImageInput({
         </div>
       </div>
 
-      <LevelDragger
-        compressLevel={ compressLevel }
-        onChange={ setCompressLevel }
-      />
+      <div className='flex-1 w-full md:h-full flex flex-col items-center md:pl-4'>
+        <LevelDragger
+          compressLevel={ compressLevel }
+          onChange={ setCompressLevel }
+        />
 
-      { newImages?.length > 0 &&
-				<NewThumb images={ newImages } />
-			}
+        { newImages?.length > 0 &&
+          <NewThumb images={ newImages } />
+        }
+      </div>
     </>
   )
 }

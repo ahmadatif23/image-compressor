@@ -8,7 +8,7 @@ export default function LevelDragger ({
 
   return (
     <>
-      <div className='w-full mt-2.5'>
+      <div className='w-full md:mt-0 mt-2.5'>
         <div className='border border-slate-100 rounded-xl shadow-md p-3'>
           <div className='flex justify-between items-center'>
             <p className='text-sm font-medium text-slate-500'>Compression Level</p>

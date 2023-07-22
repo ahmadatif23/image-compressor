@@ -29,7 +29,7 @@ export default function Home() {
         <meta name="description" content="Compress your image beautifully!" />
       </Head>
 
-      <main className='w-full h-full flex flex-col items-center justify-start px-4 py-6'>
+      <main className='w-full h-full flex md:flex-row flex-col items-center justify-start px-4 py-6'>
         <ImageInput
           newImages={ newImages }
           originNewImages={ originNewImages }
