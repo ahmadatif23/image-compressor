@@ -1,6 +1,27 @@
+import ImageInput from '@/components/ImageInput'
 import Head from 'next/head'
 
+import { useState } from 'react'
+
 export default function Home() {
+  const [loading, setLoading] = useState(false)
+  const [newImages, setNewImages] = useState([])
+  const [originNewImages, setOriginNewImages] = useState([])
+
+  // PROPERTY IMAGE UPLOAD FUNCTION
+  const handleNewImage = (codebase64, watermarkImage) => {
+    setOriginNewImages((originNewImages) => [...originNewImages, codebase64])
+    setNewImages((newImages) => [...newImages, watermarkImage])
+  }
+  const handleRotateNewImage = (newImagesList, originNewImageList) => {
+    setNewImages(newImagesList)
+    setOriginNewImages(originNewImageList)
+  }
+  const handleRemoveNewImage = (newImageList, originNewImageList) => {
+    setNewImages(newImageList)
+    setOriginNewImages(originNewImageList)
+  }
+
   return (
     <>
       <Head>
@@ -8,10 +29,12 @@ export default function Home() {
         <meta name="description" content="Compress your image beautifully!" />
       </Head>
 
-      <main className='w-full h-full flex items-center justify-center'>
-        <div>
-          Hello World!
-        </div>
+      <main className='w-full h-full flex flex-col items-center justify-start px-4 py-6'>
+        <ImageInput
+          newImages={ newImages }
+          originNewImages={ originNewImages }
+          onNewImage={ handleNewImage }
+        />
       </main>
     </>
   )
