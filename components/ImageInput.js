@@ -70,9 +70,9 @@ export default function ImageInput({
       <div className='flex-1 flex flex-col w-full mt-2.5'>
         <p className='text-sm text-gray-400'>Click on each image to download it.</p>
 
-        <div className='flex-1 w-full relative'>
+        <div className='flex-1 w-full relative mt-2'>
           <div className='absolute top-0 left-0 w-full h-full overflow-auto hide-scrollbar'>
-            <div className='grid grid-cols-2 gap-2.5 mt-0.5'>
+            <div className='grid grid-cols-2 gap-2.5'>
               {
                 images.length > 0 &&
                 images.map((image, idx) => {
@@ -98,6 +98,7 @@ export default function ImageInput({
         <div className='absolute top-0 left-0 w-full h-full'>
           <Dropzone
             multiple
+            accept={ imageComponent.dropzoneController.accept }
             onDrop={ handleDrop }
           >
             {({getRootProps, getInputProps}) => (
