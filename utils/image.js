@@ -1,17 +1,26 @@
 import imageCompression from 'browser-image-compression'
 
-const createImage = base64 =>
-  new Promise((resolve, reject) => {
+const createImage = base64 => new Promise((resolve, reject) => {
     const image = new Image();
     image.addEventListener('load', () => resolve(image));
     image.addEventListener('error', error => reject(error));
     image.src = base64;
 });
 
-const compressImg = (theBlob) =>{
+const compressImg = async (theBlob, compressLevel) => {
+  const blobUrl = URL.createObjectURL(theBlob);
+  const img = await createImage(blobUrl);
+
+  const size = compressLevel * theBlob.size
+  const maxSize = size / (1024 * 1024);
+
+  const dim = Math.max(img.height, img.width)
+  const maxDim = 0.9 * dim
+  // const maxDim = compressLevel * dim
+
   const options = {
-    maxSizeMB: 1,
-    maxWidthOrHeight: 2400,
+    maxSizeMB: maxSize,
+    maxWidthOrHeight: maxDim,
     useWebWorker: true
   }
 

@@ -1,4 +1,4 @@
-import Image from 'next/image'
+import NextImage from 'next/image'
 
 import { useState } from 'react';
 import Dropzone from 'react-dropzone'
@@ -16,12 +16,12 @@ export default function ImageInput({
   const [rotates, setRotates] = useState([])
   const [loading, setLoading] = useState(false)
   const [rotateLoadings, setRotateLoadings] = useState([])
+  const [compressLevel, setCompressLevel] = useState(0.5)
 
   const handleNewImg = async (theBlob) => {
     setLoading(true)
 
-    const compressImage = await imageComponent.compressImg(theBlob);
-    // const watermarkImage = await imageComponent.watermark(theBlob, 0);
+    const compressImage = await imageComponent.compressImg(theBlob, compressLevel);
 
     if (compressImage) {
 			onNewImage(theBlob, compressImage)
@@ -79,7 +79,7 @@ export default function ImageInput({
                   return (
                     <div onClick={ () => handleDownloadImage(image, idx+1) } className="relative w-full pt-[100%] rounded-lg overflow-hidden border border-slate-100 bg-white shadow" key={ idx }>
                       <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center cursor-pointer">
-                        <Image src={ image } fill alt={ 'Uploaded image_' + idx } className='max-w-full max-h-full object-contain' />
+                        <NextImage src={ image } fill alt={ 'Uploaded image_' + idx } className='max-w-full max-h-full object-contain' />
                       </div>
                     </div>
                   );
@@ -106,7 +106,7 @@ export default function ImageInput({
                 <div {...getRootProps()} className='input-text w-full h-full flex items-center justify-center'>
                   <input {...getInputProps()} />
                   <div className='flex flex-col items-center'>
-                    <Image src={ uploadIcon } alt='Upload image icon' className='w-20 h-20' />
+                    <NextImage src={ uploadIcon } alt='Upload image icon' className='w-20 h-20' />
                     <p className='text-sm font-medium text-slate-500 mt-2'><span className='text-[#386FA4]'>Click to upload</span> or drag and drop</p>
                     <p className='text-xs font-medium text-slate-400 mt-1'>PNG or JPG</p>
                   </div>
@@ -117,7 +117,10 @@ export default function ImageInput({
         </div>
       </div>
 
-      <LevelDragger />
+      <LevelDragger
+        compressLevel={ compressLevel }
+        onChange={ setCompressLevel }
+      />
 
       { newImages?.length > 0 &&
 				<NewThumb images={ newImages } />
